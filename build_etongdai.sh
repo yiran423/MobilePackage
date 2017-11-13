@@ -139,7 +139,6 @@ package(){
     derivedDataPath="$BUILD_DIR"
     xcarchivePath="${derivedDataPath}/$2.xcarchive"
 
-    build
     if [ $? -eq 0 ]; then
         INFO "编译开始：$xcodebuild clean archive -project ${PROJDIR}/${1}.xcodeproj -scheme $2 -sdk iphoneos -configuration $3 -derivedDataPath ${derivedDataPath} -archivePath ${xcarchivePath}"
         timeBegin=`date '+%s'`
