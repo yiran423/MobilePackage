@@ -2,21 +2,21 @@
 #author: Liu Shuo <liushuo@glorystone.net>
 
 if [ -d "$WORKSPACE" ]; then
-	WORK_DIR="$WORKSPACE"
+    WORK_DIR="$WORKSPACE"
 else
-	WORK_DIR="$PWD"
+    WORK_DIR="$PWD"
 fi
 
 INFO(){ echo -e "\x1B[35m$1\x1B[0m"; }
 WARNING(){ echo -e "\x1B[33m$1\x1B[0m"; }
 RESET(){
-	INFO "reset git repo"
-	cd $WORK_DIR
-	git reset --hard &> /dev/null
+    INFO "reset git repo"
+    cd $WORK_DIR
+    git reset --hard &> /dev/null
 }
 ERROR(){
-	echo -e "\x1B[31m$1\x1B[0m"
-	RESET
+    echo -e "\x1B[31m$1\x1B[0m"
+    RESET
 }
 
 TIMECONSUMED(){
@@ -34,12 +34,11 @@ DEVELOPMENT_TEAM_ID_SYSH="7V42JS9FK2"
 
 
 for i in $@; do
-	eval $i
-	# echo $i
-	if [ $? -ne 0 ]; then
-		echo "参数错误:$i"
-		exit 1
-	fi
+    eval $i
+    if [ $? -ne 0 ]; then
+        echo "参数错误:$i"
+        exit 1
+    fi
 done
 
 if [ -z "$build_product" ]; then
@@ -47,13 +46,14 @@ if [ -z "$build_product" ]; then
    exit 1
 fi
 
-if [[ build_product = "eTongDai" ]]; then
+if [[ $build_product == "eTongDai" ]]; then
     PROJDIR="${PWD}/ios"
+    INFO "herehere"
 else
     PROJDIR="${PWD}"
 fi
 
-INFO "PROJDIR is: $PROJDIR"
+INFO ">>>>>PROJDIR is: $PROJDIR"
 
 BUILD_DIR="$WORK_DIR/build"
 PKGS_PATH="$WORK_DIR/packages"
@@ -66,13 +66,13 @@ timeStamp=$(date +%s)
 timeYmd=$(date +%y%m%d)
 
 package(){
-	#				       $1               $2         $3        $4         $5             $6       
-	# arguments: workspace/projectName schemeName buildConfig signName profileName provisioningStyle
-	INFO "=== 开始编译打包$1: scheme $2 config $3 ==="
-	RESET
-	xcodeproj_dir_path=$(find $PWD -name "$1.xcodeproj" -type d)
-	INFO "设置sign name，profile和dSYM配置"
-	ruby -e "require 'xcodeproj'
+    #                      $1               $2         $3        $4         $5             $6       
+    # arguments: workspace/projectName schemeName buildConfig signName profileName provisioningStyle
+    INFO "=== 开始编译打包$1: scheme $2 config $3 ==="
+    RESET
+    xcodeproj_dir_path=$(find $PWD -name "$1.xcodeproj" -type d)
+    INFO "设置sign name，profile和dSYM配置"
+    ruby -e "require 'xcodeproj'
         xcproj = Xcodeproj::Project.open('$xcodeproj_dir_path')
         target_id = xcproj.targets.select {|target| target.name == '$2' }.first.uuid
         puts target_id
@@ -85,6 +85,7 @@ package(){
                   if config.name == '$3'
                     #config.build_settings['CODE_SIGN_IDENTITY'] = '$4'
                     config.build_settings['CODE_SIGN_IDENTITY[sdk=iphoneos*]'] = '$4'
+                    # config.build_settings['CODE_SIGN_IDENTITY[sdk=iphoneos*]'] = 'testtesttest111'
                     #config.build_settings['PROVISIONING_PROFILE_SPECIFIER'] = '$5'
                     config.build_settings['DEBUG_INFORMATION_FORMAT'] = 'dwarf-with-dsym'
                   end
@@ -99,19 +100,19 @@ package(){
     fi
 
     info_plist_path=$(find $PROJDIR/$1 -d 1 -name "Info.plist" -type f)
+    INFO "info_plist_path is: $info_plist_path"
     short_version=$(/usr/libexec/PlistBuddy "$info_plist_path" -c "Print CFBundleShortVersionString")
     INFO "short_version is: $short_version"
     version="$short_version.${timeYmd}${BUILD_NUMBER}"
-    INFO "version is: $version"
     INFO "修改长版本号为${version}"
     /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $version" ${info_plist_path}
 
     case "$1" in
-    	eTongDai)
-				case $5 in
-					"$PROVISIONING_PROFILE_SPECIFIER_SYSH_DEV_AUTO")
-						/usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.stateunion.p2p.etongdai"  ${info_plist_path}
-						ruby -e "require 'xcodeproj'
+        eTongDai)
+                case $5 in
+                    "$PROVISIONING_PROFILE_SPECIFIER_SYSH_DEV_AUTO")
+                        /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.stateunion.p2p.etongdai"  ${info_plist_path}
+                        ruby -e "require 'xcodeproj'
                             xcproj = Xcodeproj::Project.open('$xcodeproj_dir_path')
                             xcproj.targets.each do |target|
                                 if target.display_name == '$2'
@@ -125,22 +126,22 @@ package(){
                             xcproj.save"
                     productName="$2_$6_dev-$3_${timeStamp}_$(git rev-list HEAD --abbrev-commit --max-count=1)_${BUILD_NUMBER}"
                     ;;
-					*)
-						INFO "需要新增PROVISIONING_PROFILE_SPECIFIER"
-						;;
-				esac
-    		;;
-    	*)
-			INFO "需要新增projectName"
-			;;
+                    *)
+                        INFO "需要新增PROVISIONING_PROFILE_SPECIFIER"
+                        ;;
+                esac
+            ;;
+        *)
+            INFO "需要新增projectName"
+            ;;
     esac
 
     derivedDataPath="$BUILD_DIR"
     xcarchivePath="${derivedDataPath}/$2.xcarchive"
 
-    #build
+    build
     if [ $? -eq 0 ]; then
-    	INFO "编译开始：$xcodebuild clean archive -project $PROJDIR/${1}.xcodeproj -scheme $2 -sdk iphoneos -configuration $3 -derivedDataPath ${derivedDataPath} -archivePath ${xcarchivePath}"
+        INFO "编译开始：$xcodebuild clean archive -project ${PROJDIR}/${1}.xcodeproj -scheme $2 -sdk iphoneos -configuration $3 -derivedDataPath ${derivedDataPath} -archivePath ${xcarchivePath}"
         timeBegin=`date '+%s'`
         xcodebuild clean archive -project "$PROJDIR/${1}.xcodeproj" -scheme "$2" -sdk iphoneos -configuration "$3" -derivedDataPath "${derivedDataPath}" -archivePath "${xcarchivePath}"
     else
@@ -157,9 +158,11 @@ package(){
 
     appPath="$(find ${xcarchivePath} -name "*.app" | head -n1)"
 
-    INFO "打包开始：xcodebuild -exportArchive -archivePath $xcarchivePath -exportPath $appPath -exportOptionsPlist ExportOptions.plist"
+    INFO ">>>>>appPath is: $appPath"
+
+    INFO "打包开始：xcodebuild -exportArchive -archivePath $xcarchivePath -exportPath $PKGS_PATH -exportOptionsPlist ExportOptions.plist"
     timeBegin=`date '+%s'`
-    xcodebuild -exportArchive -archivePath $xcarchivePath -exportPath $appPath -exportOptionsPlist ExportOptions.plist &>/dev/null
+    xcodebuild -exportArchive -archivePath $xcarchivePath -exportPath $PKGS_PATH -exportOptionsPlist ExportOptions.plist &>/dev/null
     if [[ 0 -ne $? ]]; then
         ERROR "打包失败！耗时$(TIMECONSUMED)秒"
         [ -d $derivedDataPath ] && { rm -rf "${derivedDataPath}"; }
