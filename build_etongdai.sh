@@ -159,9 +159,9 @@ package(){
 
     INFO ">>>>>appPath is: $appPath"
 
-    INFO "打包开始：xcodebuild -exportArchive -archivePath $xcarchivePath -exportPath $PKGS_PATH -exportOptionsPlist ExportOptions.plist"
+    INFO "打包开始：xcodebuild -exportArchive -archivePath $xcarchivePath -exportPath $PKGS_PATH -exportOptionsPlist ExportOptions.plist -allowProvisioningUpdates"
     timeBegin=`date '+%s'`
-    xcodebuild -exportArchive -archivePath $xcarchivePath -exportPath $PKGS_PATH -exportOptionsPlist ExportOptions.plist &>/dev/null
+    xcodebuild -exportArchive -archivePath $xcarchivePath -exportPath $PKGS_PATH -exportOptionsPlist ExportOptions.plist -allowProvisioningUpdates &>/dev/null
     if [[ 0 -ne $? ]]; then
         ERROR "打包失败！耗时$(TIMECONSUMED)秒"
         [ -d $derivedDataPath ] && { rm -rf "${derivedDataPath}"; }
@@ -171,6 +171,10 @@ package(){
     fi
     RESET
     INFO "=== $1编译打包完成: scheme $2 config $3 ==="
+
+    #rename ipa
+    INFO "重命名ipa..."
+    mv ${PKGS_PATH}/$productName.ipa ${PKGS_PATH}/$productName-${}.ipa
 
 }
 
