@@ -174,7 +174,7 @@ package(){
 
     #rename ipa
     INFO "重命名ipa..."
-    mv ${PKGS_PATH}/$productName.ipa ${PKGS_PATH}/$productName-${}.ipa
+    mv ${PKGS_PATH}/$productName.ipa ${PKGS_PATH}/$productName_${BRANCH_NAME}_$(date +%Y-%m-%d)_${BUILD_NUMBER}.ipa
 
 }
 
