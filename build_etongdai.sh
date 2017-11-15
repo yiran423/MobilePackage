@@ -174,7 +174,7 @@ package(){
 
     #rename ipa
     INFO "重命名ipa..."
-    mv "${PKGS_PATH}/${1}.ipa" ${PKGS_PATH}/$productName.ipa
+    mv "${PKGS_PATH}/${1}.ipa" "${PKGS_PATH}/${productName}.ipa"
 
 }
 
