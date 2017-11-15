@@ -175,6 +175,13 @@ package(){
     #rename ipa
     INFO "重命名ipa..."
     mv "${PKGS_PATH}/${1}.ipa" "${PKGS_PATH}/${productName}.ipa"
+    
+    #upload ipa to nexus
+    if [ -f "${PKGS_PATH}/${productName}"];then
+        curl -v -u "deployer:iouI&1" --upload-file "${PKGS_PATH}/${productName}" http://10.20.9.108:8081/nexus/repository/files/
+    else
+        ERROR "upload ipa to nexus fail."
+    fi
 
 }
 
