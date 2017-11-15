@@ -124,7 +124,7 @@ package(){
                                 end
                             end
                             xcproj.save"
-                    productName="$2_$6_dev-$3_${timeStamp}_$(git rev-list HEAD --abbrev-commit --max-count=1)_${BUILD_NUMBER}"
+                    productName="$2_${BRANCH_NAME}_$3_${timeStamp}_${BUILD_NUMBER}"
                     ;;
                     *)
                         INFO "需要新增PROVISIONING_PROFILE_SPECIFIER"
@@ -174,7 +174,7 @@ package(){
 
     #rename ipa
     INFO "重命名ipa..."
-    mv ${PKGS_PATH}/$productName.ipa ${PKGS_PATH}/$productName_${BRANCH_NAME}_$(date +%Y-%m-%d)_${BUILD_NUMBER}.ipa
+    mv "${PKGS_PATH}/${1}.ipa" ${PKGS_PATH}/$productName.ipa
 
 }
 
