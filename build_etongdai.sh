@@ -62,7 +62,7 @@ find ${PKGS_PATH} -d 1 -name '*.ipa' -exec mv {} ${PKGS_PATH}/backup \;
 DSYMS_PATH="$WORK_DIR/dsym"
 mkdir -p "$DSYMS_PATH/backup"
 mv ${DSYMS_PATH}/*.zip ${DSYMS_PATH}/backup/
-timeStamp=$(date '+%Y-%m-%d-%H:%M:%S')
+timeStamp=$(date '+%Y%m%d-%H-%M')
 timeYmd=$(date +%y%m%d)
 
 package(){
@@ -124,7 +124,7 @@ package(){
                                 end
                             end
                             xcproj.save"
-                    productName="$2_$3_${timeStamp}_${BUILD_NUMBER}"
+                    productName="$2_$3_${timeStamp}_No.${BUILD_NUMBER}"
                     ;;
                     *)
                         INFO "需要新增PROVISIONING_PROFILE_SPECIFIER"
