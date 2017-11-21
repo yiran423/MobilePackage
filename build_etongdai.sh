@@ -61,9 +61,9 @@ BUILD_DIR="$WORK_DIR/build"
 PKGS_PATH="$WORK_DIR/packages"
 mkdir -p "$PKGS_PATH/backup"
 find ${PKGS_PATH} -d 1 -name '*.ipa' -exec mv {} ${PKGS_PATH}/backup \;
-DSYMS_PATH="$WORK_DIR/dsym"
-mkdir -p "$DSYMS_PATH/backup"
-mv ${DSYMS_PATH}/*.zip ${DSYMS_PATH}/backup/
+# DSYMS_PATH="$WORK_DIR/dsym"
+# mkdir -p "$DSYMS_PATH/backup"
+# mv ${DSYMS_PATH}/*.zip ${DSYMS_PATH}/backup/
 timeStamp=$(date '+%y%m%d-%H-%M')
 timeYmd=$(date +%y%m%d)
 
