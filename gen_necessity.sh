@@ -4,7 +4,7 @@
 #date: 21 Nov, 2017
 
 INFO(){ echo -e "\x1B[35m$1\x1B[0m"; }
-ERROR(){ echo -e "\x1B[31m$1\x1B[0m" }
+ERROR(){ echo -e "\x1B[31m$1\x1B[0m"; }
 
 [ -d necessity ] || mkdir -p necessity
 plistpath="necessity/manifest.plist"
@@ -106,12 +106,12 @@ EOF
 INFO "upload plist and html to nexus"
 if [ -f "${plistpath}" ];then
     curl -v -u "deployer:iouI&1" --upload-file "${plistpath}" "http://10.20.9.108:8081/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/"
-    else
-        ERROR "upload plist to nexus fail."
+else
+    ERROR "upload plist to nexus fail."
 fi
 
 if [ -f "${htmlpath}" ];then
     curl -v -u "deployer:iouI&1" --upload-file "${htmlpath}" "http://10.20.9.108:8081/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/"
-    else
-        ERROR "upload html to nexus fail."
+else
+    ERROR "upload html to nexus fail."
 fi
