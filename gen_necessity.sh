@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#title: build_etongdai.sh
+#title: gen_necessity.sh
 #author: Liu Shuo <liushuo@glorystone.net>
 #date: 21 Nov, 2017
 
