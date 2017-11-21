@@ -9,6 +9,7 @@ ERROR(){ echo -e "\x1B[31m$1\x1B[0m"; }
 [ -d necessity ] || mkdir -p necessity
 plistpath="necessity/manifest.plist"
 htmlpath="necessity/index.html"
+imgpath="AppIcon60x60@3x.png"
 
 #gen plist
 cat << EOF > $plistpath
@@ -25,7 +26,7 @@ cat << EOF > $plistpath
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/${short_version}/eTongDai.ipa</string>
+					<string>https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/${productName}.ipa</string>
 				</dict>
 			</array>
 			<key>metadata</key>
@@ -96,7 +97,7 @@ cat << EOF > $htmlpath
     <div align="center" id="header"><h4>请点击下方按钮进行安装</h4></div>
     <div align="center">
         <form>
-            <input type="button" class="btn" value="点击安装" onclick="window.location.href='itms-services://?action=download-manifest&url=https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/${short_version}/manifest.plist'" />
+            <input type="button" class="btn" value="点击安装" onclick="window.location.href='itms-services://?action=download-manifest&url=https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/manifest.plist'" />
         </form>
     </div>
 </body>
@@ -115,3 +116,15 @@ if [ -f "${htmlpath}" ];then
 else
     ERROR "upload html to nexus fail."
 fi
+
+INFO "upload plist and img to nexus"
+if [ -f "${htmlpath}" ];then
+    curl -v -u "deployer:iouI&1" --upload-file "${imgpath}" "http://10.20.9.108:8081/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/"
+else
+    ERROR "upload img to nexus fail."
+fi
+
+
+
+
+
