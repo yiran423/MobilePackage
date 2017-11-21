@@ -115,17 +115,3 @@ if [ -f "${htmlpath}" ];then
     else
         ERROR "upload html to nexus fail."
 fi
-
-
-
-
-
-
-
-
-
-
-
-
-
-
