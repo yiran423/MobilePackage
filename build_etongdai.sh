@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+#title: build_etongdai.sh
 #author: Liu Shuo <liushuo@glorystone.net>
+#date: 13 Nov, 2017
 
 if [ -d "$WORKSPACE" ]; then
     WORK_DIR="$WORKSPACE"
@@ -62,7 +64,7 @@ find ${PKGS_PATH} -d 1 -name '*.ipa' -exec mv {} ${PKGS_PATH}/backup \;
 DSYMS_PATH="$WORK_DIR/dsym"
 mkdir -p "$DSYMS_PATH/backup"
 mv ${DSYMS_PATH}/*.zip ${DSYMS_PATH}/backup/
-timeStamp=$(date '+%Y%m%d-%H-%M')
+timeStamp=$(date '+%y%m%d-%H-%M')
 timeYmd=$(date +%y%m%d)
 
 package(){
@@ -124,7 +126,7 @@ package(){
                                 end
                             end
                             xcproj.save"
-                    productName="$2_$3_No.${BUILD_NUMBER}_${timeStamp}"
+                    productName="$2_$3_${short_version}_No.${BUILD_NUMBER}_${timeStamp}"
                     ;;
                     *)
                         INFO "需要新增PROVISIONING_PROFILE_SPECIFIER"
@@ -179,7 +181,7 @@ package(){
     #upload ipa to nexus
     INFO "上传ipa..."
     if [ -f "${PKGS_PATH}/${productName}.ipa" ];then
-        curl -v -u "deployer:iouI&1" --upload-file "${PKGS_PATH}/${productName}.ipa" "http://10.20.9.108:8081/nexus/repository/etd-apps/${short_version}/"
+        curl -v -u "deployer:iouI&1" --upload-file "${PKGS_PATH}/${productName}.ipa" "http://10.20.9.108:8081/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/"
     else
         ERROR "upload ipa to nexus fail."
     fi
