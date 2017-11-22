@@ -13,5 +13,11 @@ bildNo=$BUILD_NUMBER
 jobName=$JOB_NAME
 url="https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/index.html"
 cat << EOF > download.json
-{ "platForm":"$platFrom","version":"$version","buildNo":"$BUILD_NUMBER","jobName":"$JOB_NAME","url":"$url"}
+{
+	"platForm":"$platFrom",
+	"version":"$version",
+	"buildNo":"$BUILD_NUMBER",
+	"jobName":"$JOB_NAME",
+	"url":"$url"
+}
 EOF
