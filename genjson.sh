@@ -15,13 +15,11 @@ jobName=$JOB_NAME
 url="https://nexus.zgc.etongdai.org/nexus/repository/etd-apps"
 cat << EOF > download.json
 {
-	"platForm":"$platFrom",
+	"platform":"$platFrom",
 	"version":"$version",
-	"buildNo":"$BUILD_NUMBER",
+	"buildNum":"$BUILD_NUMBER",
 	"jobName":"$JOB_NAME",
-	"url":"$url",
-	"resourse": [
-			{ "ipa":"$productName", "html":"index.html", "plist":"manifest.plist" } 
-	]
+	"indexUrl"="https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/index.html",
+	"resources": [ "${productName1}", "${productName2}", "${productName3}" ]
 }
 EOF
