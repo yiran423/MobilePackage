@@ -4,12 +4,12 @@
 #date: 21 Nov, 2017
 
 if [[ $JOB_NAME =~ ^iOS ]];then
-	platFrom="ios"
+	platform="iOS"
 else
-	platFrom="android"
+	platform="android"
 fi
 version=$short_version
-bildNo=$BUILD_NUMBER
+buildNum=$BUILD_NUMBER
 jobName=$JOB_NAME
 productName=${productName}
 cat << EOF > download.json
@@ -18,7 +18,8 @@ cat << EOF > download.json
 	"version":"$version",
 	"buildNum":"$BUILD_NUMBER",
 	"jobName":"$JOB_NAME",
-	"indexUrl"="https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/iOS/${short_version}/${BUILD_NUMBER}/index.html",
-	"resources": [ "${productName}", "${productName2}", "${productName3}" ]
+	"buildUrl":"${BUILD_URL}",
+	"indexUrl":"https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/iOS/${short_version}/${BUILD_NUMBER}/index.html",
+	"resources": [ "${productName}.ipa" ]
 }
 EOF
