@@ -11,8 +11,7 @@ fi
 version=$short_version
 bildNo=$BUILD_NUMBER
 jobName=$JOB_NAME
-# url="https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/index.html"
-url="https://nexus.zgc.etongdai.org/nexus/repository/etd-apps"
+productName=${productName}
 cat << EOF > download.json
 {
 	"platform":"$platFrom",
@@ -20,6 +19,6 @@ cat << EOF > download.json
 	"buildNum":"$BUILD_NUMBER",
 	"jobName":"$JOB_NAME",
 	"indexUrl"="https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/iOS/${short_version}/${BUILD_NUMBER}/index.html",
-	"resources": [ "${productName1}", "${productName2}", "${productName3}" ]
+	"resources": [ "${productName}", "${productName2}", "${productName3}" ]
 }
 EOF
