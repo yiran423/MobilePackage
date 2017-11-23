@@ -19,7 +19,7 @@ cat << EOF > download.json
 	"version":"$version",
 	"buildNum":"$BUILD_NUMBER",
 	"jobName":"$JOB_NAME",
-	"indexUrl"="https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/index.html",
+	"indexUrl"="https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/iOS/${short_version}/${BUILD_NUMBER}/index.html",
 	"resources": [ "${productName1}", "${productName2}", "${productName3}" ]
 }
 EOF

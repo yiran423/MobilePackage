@@ -181,7 +181,7 @@ package(){
     #upload ipa to nexus
     INFO "上传ipa..."
     if [ -f "${PKGS_PATH}/${productName}.ipa" ];then
-        curl -v -u "deployer:iouI&1" --upload-file "${PKGS_PATH}/${productName}.ipa" "http://10.20.9.108:8081/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/"
+        curl -v -u "deployer:iouI&1" --upload-file "${PKGS_PATH}/${productName}.ipa" "http://10.20.9.108:8081/nexus/repository/etd-apps/iOS/${short_version}/${BUILD_NUMBER}/"
     else
         ERROR "upload ipa to nexus fail."
     fi

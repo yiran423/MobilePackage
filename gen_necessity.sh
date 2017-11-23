@@ -97,7 +97,7 @@ cat << EOF > $htmlpath
     <div align="center" id="header"><h4>请点击下方按钮进行安装</h4></div>
     <div align="center">
         <form>
-            <input type="button" class="btn" value="点击安装" onclick="window.location.href='itms-services://?action=download-manifest&url=https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/manifest.plist'" />
+            <input type="button" class="btn" value="点击安装" onclick="window.location.href='itms-services://?action=download-manifest&url=https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/iOS/${short_version}/${BUILD_NUMBER}/manifest.plist'" />
         </form>
     </div>
 </body>
@@ -106,20 +106,20 @@ EOF
 
 INFO "upload plist and html to nexus"
 if [ -f "${plistpath}" ];then
-    curl -v -u "deployer:iouI&1" --upload-file "${plistpath}" "http://10.20.9.108:8081/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/"
+    curl -v -u "deployer:iouI&1" --upload-file "${plistpath}" "http://10.20.9.108:8081/nexus/repository/etd-apps/iOS/${short_version}/${BUILD_NUMBER}/"
 else
     ERROR "upload plist to nexus fail."
 fi
 
 if [ -f "${htmlpath}" ];then
-    curl -v -u "deployer:iouI&1" --upload-file "${htmlpath}" "http://10.20.9.108:8081/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/"
+    curl -v -u "deployer:iouI&1" --upload-file "${htmlpath}" "http://10.20.9.108:8081/nexus/repository/etd-apps/iOS/${short_version}/${BUILD_NUMBER}/"
 else
     ERROR "upload html to nexus fail."
 fi
 
 INFO "upload plist and img to nexus"
 if [ -f "${htmlpath}" ];then
-    curl -v -u "deployer:iouI&1" --upload-file "${imgpath}" "http://10.20.9.108:8081/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/"
+    curl -v -u "deployer:iouI&1" --upload-file "${imgpath}" "http://10.20.9.108:8081/nexus/repository/etd-apps/iOS/${short_version}/${BUILD_NUMBER}/"
 else
     ERROR "upload img to nexus fail."
 fi
