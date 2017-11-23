@@ -14,7 +14,7 @@ jobName=$JOB_NAME
 productName=${productName}
 cat << EOF > download.json
 {
-	"platform":"$platFrom",
+	"platform":"$platform",
 	"version":"$version",
 	"buildNum":"$BUILD_NUMBER",
 	"jobName":"$JOB_NAME",
