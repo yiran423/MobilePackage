@@ -6,8 +6,8 @@
 if [ -d "$WORKSPACE" ]; then
     WORK_DIR="$WORKSPACE"
 else
-    iOS_DIR="$PWD"
-    WORK_DIR=${iOS_DIR%/*}
+    iOS_Scripts="$PWD"
+    WORK_DIR=${iOS_Scripts%/*}
 fi
 
 INFO(){ echo -e "\x1B[35m$1\x1B[0m"; }
@@ -162,9 +162,9 @@ package(){
 
     INFO ">>>>>appPath is: $appPath"
 
-    INFO "打包开始：xcodebuild -exportArchive -archivePath $xcarchivePath -exportPath $PKGS_PATH -exportOptionsPlist ExportOptions.plist -allowProvisioningUpdates"
+    INFO "打包开始：xcodebuild -exportArchive -archivePath $xcarchivePath -exportPath $PKGS_PATH -exportOptionsPlist $iOS_Scripts/ExportOptions.plist -allowProvisioningUpdates"
     timeBegin=`date '+%s'`
-    xcodebuild -exportArchive -archivePath $xcarchivePath -exportPath $PKGS_PATH -exportOptionsPlist ExportOptions.plist -allowProvisioningUpdates &>/dev/null
+    xcodebuild -exportArchive -archivePath $xcarchivePath -exportPath $PKGS_PATH -exportOptionsPlist $iOS_Scripts/ExportOptions.plist -allowProvisioningUpdates &>/dev/null
     if [[ 0 -ne $? ]]; then
         ERROR "打包失败！耗时$(TIMECONSUMED)秒"
         [ -d $derivedDataPath ] && { rm -rf "${derivedDataPath}"; }
