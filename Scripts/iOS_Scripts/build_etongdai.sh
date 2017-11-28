@@ -5,6 +5,7 @@
 
 if [ -d "$WORKSPACE" ]; then
     WORK_DIR="$WORKSPACE"
+    iOS_Scripts="$WORKSPACE/Scripts/iOS_Scripts"
 else
     iOS_Scripts="$PWD"
     WORK_DIR=${iOS_Scripts%/*}
