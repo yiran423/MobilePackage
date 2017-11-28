@@ -12,7 +12,7 @@ version=$short_version
 buildNum=$BUILD_NUMBER
 jobName=$JOB_NAME
 productName=${productName}
-cat << EOF > download.json
+cat << EOF > ${WORK_DIR}/download.json
 {
 	"platform":"$platform",
 	"version":"$version",
