@@ -6,7 +6,8 @@
 if [ -d "$WORKSPACE" ]; then
     WORK_DIR="$WORKSPACE"
 else
-    WORK_DIR="$PWD"
+    iOS_DIR="$PWD"
+    WORK_DIR=${iOS_DIR%/*}
 fi
 
 INFO(){ echo -e "\x1B[35m$1\x1B[0m"; }
@@ -49,10 +50,10 @@ if [ -z "$build_product" ]; then
 fi
 
 if [[ $build_product == "eTongDai" ]]; then
-    PROJDIR="${PWD}/ios"
+    PROJDIR="${WORK_DIR}/ios"
     INFO "herehere"
 else
-    PROJDIR="${PWD}"
+    PROJDIR="${WORK_DIR}/ios"
 fi
 
 INFO ">>>>>PROJDIR is: $PROJDIR"
@@ -72,7 +73,7 @@ package(){
     # arguments: workspace/projectName schemeName buildConfig signName profileName provisioningStyle
     INFO "=== 开始编译打包$1: scheme $2 config $3 ==="
     RESET
-    xcodeproj_dir_path=$(find $PWD -name "$1.xcodeproj" -type d)
+    xcodeproj_dir_path=$(find $WORK_DIR -name "$1.xcodeproj" -type d)
     INFO "设置sign name，profile和dSYM配置"
     ruby -e "require 'xcodeproj'
         xcproj = Xcodeproj::Project.open('$xcodeproj_dir_path')
