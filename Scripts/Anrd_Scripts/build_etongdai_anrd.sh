@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#title: build_etongdai_anrd.sh
+#title: build_etongdai_andr.sh
 #author: Liu Shuo <liushuo@glorystone.net>
 #date: 23 Nov, 2017
 
@@ -25,24 +25,32 @@ TIMECONSUMED(){
     echo `expr $timeNow - $timeBegin`
 }
 
-# setconfig() {
+setconfig() {
+	INFO "set environment"
+	case "$environment" in
+		"test" )
+				sed -i -n 's/const mode.*/const mode = "test";/' "$WORK_DIR/app/commons/config.js"
+			;;
+		"betaTest" )
+				sed -i -n 's/const mode.*/const mode = "betaTest";/' "$WORK_DIR/app/commons/config.js"
+			;;
+		"develop" )
+				sed -i -n 's/const mode.*/const mode = "develop";/' "$WORK_DIR/app/commons/config.js"
+			;;
+		"production" )
+				sed -i -n 's/const mode.*/const mode = "production";/' "$WORK_DIR/app/commons/config.js"
+			;;	
 
+	esac
 
-# }
+}
 
 
 PROJDIR="${WORK_DIR}/android/app"
-
 BUILD_DIR="${PROJDIR}/build/outputs/apk/$(echo $buildType | tr 'A-Z' 'a-z')"
-
-INFO ">>>>>>$BUILD_DIR"
-
 libDir="${PROJDIR}/src/main/jniLibs"
-
 jFile="./channels.json"
-
 timeStamp=$(date '+%y%m%d-%H-%M')
-
 channelCount=0
 
 headVer=${appVersionCode:0:1}
@@ -50,10 +58,8 @@ midVer1=${appVersionCode:1:1}
 midVer2=${appVersionCode:2:1}
 tailVer=${appVersionCode:3:1}
 version="${headVer}.${midVer1}.${midVer2}.${tailVer}"
-
 [[ ! -d apks ]] && `mkdir -p apks`
 
-INFO ">>>>>>$libDir"
 
 package() {
 	# $1-appPkg $2-appName $3-appVersion $4-appVersionCode	$5-channelName $6-channelId	$7-environment	$8-buildType $9-author
@@ -208,7 +214,7 @@ package() {
 			
 			INFO "apk..."
     		if [ -f "${WORK_DIR}/apks/${productName}.apk" ];then
-        		curl -v -u "deployer:iouI&1" --upload-file "${WORK_DIR}/apks/${productName}.apk" "http://10.20.9.108:8081/nexus/repository/etd-apps/Anrd/${version}/${BUILD_NUMBER}/"
+        		curl -v -u "deployer:iouI&1" --upload-file "${WORK_DIR}/apks/${productName}.apk" "http://10.20.9.108:8081/nexus/repository/etd-apps/Andr/${version}/${BUILD_NUMBER}/"
     		else
         		ERROR "upload apk to nexus fail."
     		fi
@@ -230,7 +236,7 @@ package() {
 			
 			INFO "apk..."
     		if [ -f "${WORK_DIR}/apks/${productName}.apk" ];then
-        		curl -v -u "deployer:iouI&1" --upload-file "${WORK_DIR}/apks/${productName}.apk" "http://10.20.9.108:8081/nexus/repository/etd-apps/Anrd/${version}/${BUILD_NUMBER}/"
+        		curl -v -u "deployer:iouI&1" --upload-file "${WORK_DIR}/apks/${productName}.apk" "http://10.20.9.108:8081/nexus/repository/etd-apps/Andr/${version}/${BUILD_NUMBER}/"
     		else
         		ERROR "upload apk to nexus fail."
     		fi
@@ -246,6 +252,6 @@ package() {
 
 
 package
-# package "com.stateunion.p2p.etongdai" "易通贷理财" "3.0.5" "3006" "yingxiao1001" "MTA3MTQwMjA=" "production" "Release" "liushuo" "true" | tee anrd.log
+# package "com.stateunion.p2p.etongdai" "易通贷理财" "3.0.5" "3006" "yingxiao1001" "MTA3MTQwMjA=" "production" "Release" "liushuo" "true" | tee andr.log
 # package "com.stateunion.p2p.etongdai" "易通贷理财" "3.0.5" "3006" "test" "" "test" "Debug" "liushuo" "false"
 

@@ -18,7 +18,7 @@ cat << EOF > ${WORK_DIR}/download.json
 	"buildNum":"$BUILD_NUMBER",
 	"jobName":"$JOB_NAME",
 	"buildUrl":"${BUILD_URL}",
-	"indexUrl":"https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/Anrd/${version}/${BUILD_NUMBER}/${productName}.apk",
+	"indexUrl":"https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/Andr/${version}/${BUILD_NUMBER}/${productName}.apk",
 	"resources": [ "${productName}.apk" ]
 }
 EOF
