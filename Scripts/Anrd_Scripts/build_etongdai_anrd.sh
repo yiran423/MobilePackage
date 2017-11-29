@@ -45,27 +45,33 @@ timeStamp=$(date '+%y%m%d-%H-%M')
 
 channelCount=0
 
+headVer=${appVersionCode:0:1}
+midVer1=${appVersionCode:1:1}
+midVer2=${appVersionCode:2:1}
+tailVer=${appVersionCode:3:1}
+version="${headVer}.${midVer1}.${midVer2}.${tailVer}"
+
 [[ ! -d apks ]] && `mkdir -p apks`
 
 INFO ">>>>>>$libDir"
 
 package() {
 	# $1-appPkg $2-appName $3-appVersion $4-appVersionCode	$5-channelName $6-channelId	$7-environment	$8-buildType $9-author
-	appPkg=$1
-	appName=$2
-	appVersion=$3
-	appVersionCode=$4
-	channelName=$5
-	channelId=$6
-	environment=$7
-	buildType=$8
-	author=$9
-	isChannels=${10}
+	# appPkg=$1
+	# appName=$2
+	# appVersion=$3
+	# appVersionCode=$4
+	# channelName=$5
+	# channelId=$6
+	# environment=$7
+	# buildType=$8
+	# author=$9
+	# isChannels=${10}
+	
 	#clean proj
-
 	INFO "打包参数列表: appPkg:$appPkg, appName:$appName, appVersion:$appVersion, appVersionCode:$appVersionCode, channelName:$channelName, channelId:$channelId, environment:$environment, buildType:$buildType, author:$author, isChannels:$isChannels"
 	gradle clean -b "${WORK_DIR}/android/app/build.gradle"
-
+	productName="eTongDai_${channelName}_${environment}_${buildType}_No.${BUILD_NUMBER}_${timeStamp}"
 	if [[ "$isChannels" == "true" ]];then
 		INFO "package all channels"
 		INFO "count total package time"
@@ -101,7 +107,7 @@ package() {
     					fi
     				fi
     				INFO "move apk"
-					find ${BUILD_DIR} -d 1 -name '*.apk' -exec mv {} ./apks/eTongDai_${channelName}_${environment}_${buildType}_${timeStamp}.apk \;
+					find ${BUILD_DIR} -d 1 -name '*.apk' -exec mv {} ./apks/${productName}.apk \;
 		 	 	else
 		 	 		INFO "libac.so is not existed"
 		 	 		INFO "cp libac.so"
@@ -123,7 +129,7 @@ package() {
     					fi
     				fi
 					INFO "move apk"
-					find ${BUILD_DIR} -d 1 -name '*.apk' -exec mv {} ./apks/eTongDai_${channelName}_${environment}_${buildType}_${timeStamp}.apk \;
+					find ${BUILD_DIR} -d 1 -name '*.apk' -exec mv {} ./apks/${productName}.apk \;
 		 	 	fi
 		 		
 		 	 else 
@@ -150,7 +156,7 @@ package() {
         					INFO "编译成功！耗时$(TIMECONSUMED)秒,位于：${BUILD_DIR}"
     					fi
     				INFO "move apk"
-					find ${BUILD_DIR} -d 1 -name '*.apk' -exec mv {} ./apks/eTongDai_${channelName}_${environment}_${buildType}_${timeStamp}.apk \;	
+					find ${BUILD_DIR} -d 1 -name '*.apk' -exec mv {} ./apks/${productName}.apk \;	
     				fi
 		 	 	else
 		 	 		INFO "libdu.so is not existed"
@@ -175,7 +181,7 @@ package() {
     					fi
 		 	 		fi
 		 	 		INFO "move apk"
-					find ${BUILD_DIR} -d 1 -name '*.apk' -exec mv {} ./apks/eTongDai_${channelName}_${environment}_${buildType}_${timeStamp}.apk \;
+					find ${BUILD_DIR} -d 1 -name '*.apk' -exec mv {} ./apks/${productName}.apk \;
 		 	 	fi
 		 	 fi
 		 done
@@ -198,7 +204,14 @@ package() {
         		INFO "编译成功！耗时$(TIMECONSUMED)秒,位于：${BUILD_DIR}"
     		fi
     		INFO "move apk"
-			find ${BUILD_DIR} -d 1 -name '*.apk' -exec mv {} ./apks/eTongDai_${channelName}_${environment}_${buildType}_${timeStamp}.apk \;
+			find ${BUILD_DIR} -d 1 -name '*.apk' -exec mv {} ./apks/${productName}.apk \;
+			
+			INFO "apk..."
+    		if [ -f "./apks/${productName}" ];then
+        		curl -v -u "deployer:iouI&1" --upload-file "./apks/${productName}.apk" "http://10.20.9.108:8081/nexus/repository/etd-apps/Anrd/${version}/${BUILD_NUMBER}/"
+    		else
+        		ERROR "upload apk to nexus fail."
+    		fi
     	else
     		INFO ">>>>>>$appPkg"
 			INFO "打包开始："	
@@ -212,7 +225,17 @@ package() {
         		INFO "编译成功！耗时$(TIMECONSUMED)秒,位于：${BUILD_DIR}"
     		fi
     		INFO "move apk"
-			find ${BUILD_DIR} -d 1 -name '*.apk' -exec mv {} ./apks/eTongDai_${channelName}_${environment}_${buildType}_${timeStamp}.apk \;
+			find ${BUILD_DIR} -d 1 -name '*.apk' -exec mv {} ./apks/${productName}.apk \;
+
+			INFO "move apk"
+			find ${BUILD_DIR} -d 1 -name '*.apk' -exec mv {} ./apks/${productName}.apk \;
+			
+			INFO "apk..."
+    		if [ -f "./apks/${productName}" ];then
+        		curl -v -u "deployer:iouI&1" --upload-file "./apks/${productName}.apk" "http://10.20.9.108:8081/nexus/repository/etd-apps/Anrd/${version}/${BUILD_NUMBER}/"
+    		else
+        		ERROR "upload apk to nexus fail."
+    		fi
 
 		fi
 
