@@ -33,8 +33,15 @@ setversion() {
     info_plist=$(find $PROJDIR/$1 -d 1 -name "Info.plist" -type f)
     INFO "info_plist is: $info_plist"
     short_ver=$(/usr/libexec/PlistBuddy "$info_plist" -c "Print CFBundleShortVersionString")
+    headVer=`echo $short_ver | awk -F "." '{print $1}'`
+    midVer=`echo $short_ver | awk -F "." '{print $2}'`
+    tailVer=`echo $short_ver | awk -F "." '{print $3}'`
+    tailVerM=$(( ++tailVer ))
+    versionM="${headVer}.${midVer}.${midVer}.${tailVerM}"
     INFO "short_ver is: $short_ver"
+    INFO "versionM is: $versionM"
     sed -i '' 's#appVersion.*#appVersion: '$short_ver', //app#' "$WORK_DIR/app/commons/config.js"
+    sed -i '' 's#appAndroidVersion.*#appAndroidVersion: '$versionM', //app#' "$WORK_DIR/app/commons/config.js"
 }
 
 setconfig() {

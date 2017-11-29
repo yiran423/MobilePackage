@@ -44,6 +44,7 @@ TIMECONSUMED(){
 setversion() {
 	INFO "set version"
 	sed -i '' 's#appAndroidVersion.*#appAndroidVersion: '$version', //app#' "$WORK_DIR/app/commons/config.js"
+	sed -i '' 's#appVersion.*#appVersion: '$appVersion', //app#' "$WORK_DIR/app/commons/config.js"
 }
 
 setconfig() {
