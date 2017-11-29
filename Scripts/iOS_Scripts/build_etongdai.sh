@@ -28,9 +28,41 @@ TIMECONSUMED(){
     echo `expr $timeNow - $timeBegin`
 }
 
+for i in $@; do
+    eval $i
+    if [ $? -ne 0 ]; then
+        echo "参数错误:$i"
+        exit 1
+    fi
+done
+
+if [ -z "$build_product" ]; then
+   ERROR "用法：$(basename $0) build_product=eTongDai"
+   exit 1
+fi
+
+if [[ $build_product == "eTongDai" ]]; then
+    PROJDIR="${WORK_DIR}/ios"
+    INFO "herehere"
+else
+    PROJDIR="${WORK_DIR}/ios"
+fi
+
+INFO ">>>>>PROJDIR is: $PROJDIR"
+
+BUILD_DIR="$WORK_DIR/build"
+PKGS_PATH="$WORK_DIR/packages"
+mkdir -p "$PKGS_PATH/backup"
+find ${PKGS_PATH} -d 1 -name '*.ipa' -exec mv {} ${PKGS_PATH}/backup \;
+# DSYMS_PATH="$WORK_DIR/dsym"
+# mkdir -p "$DSYMS_PATH/backup"
+# mv ${DSYMS_PATH}/*.zip ${DSYMS_PATH}/backup/
+timeStamp=$(date '+%y%m%d-%H-%M')
+timeYmd=$(date +%y%m%d)
+
 setversion() {
     INFO "set version"
-    info_plist=$(find $PROJDIR/$1 -d 1 -name "Info.plist" -type f)
+    info_plist=$(find $PROJDIR/$build_product -d 1 -name "Info.plist" -type f)
     INFO "info_plist is: $info_plist"
     short_ver=$(/usr/libexec/PlistBuddy "$info_plist" -c "Print CFBundleShortVersionString")
     headVer=`echo $short_ver | awk -F "." '{print $1}'`
@@ -71,39 +103,6 @@ DEVELOPMENT_TEAM_NAME_SYSH="Beijing Yitongdai Financial Information Service Co.,
 DEVELOPMENT_TEAM_ID_SYSH="7V42JS9FK2"
 # PROVISIONING_PROFILE_SPECIFIER_SYSH_DEV_AUTO="Automatic"
 # PROVISIONING_PROFILE_SPECIFIER_SYSH_DEV="4c15ce26-8cf2-4431-8842-50007ee27ca4"
-
-
-for i in $@; do
-    eval $i
-    if [ $? -ne 0 ]; then
-        echo "参数错误:$i"
-        exit 1
-    fi
-done
-
-if [ -z "$build_product" ]; then
-   ERROR "用法：$(basename $0) build_product=eTongDai"
-   exit 1
-fi
-
-if [[ $build_product == "eTongDai" ]]; then
-    PROJDIR="${WORK_DIR}/ios"
-    INFO "herehere"
-else
-    PROJDIR="${WORK_DIR}/ios"
-fi
-
-INFO ">>>>>PROJDIR is: $PROJDIR"
-
-BUILD_DIR="$WORK_DIR/build"
-PKGS_PATH="$WORK_DIR/packages"
-mkdir -p "$PKGS_PATH/backup"
-find ${PKGS_PATH} -d 1 -name '*.ipa' -exec mv {} ${PKGS_PATH}/backup \;
-# DSYMS_PATH="$WORK_DIR/dsym"
-# mkdir -p "$DSYMS_PATH/backup"
-# mv ${DSYMS_PATH}/*.zip ${DSYMS_PATH}/backup/
-timeStamp=$(date '+%y%m%d-%H-%M')
-timeYmd=$(date +%y%m%d)
 
 package(){
     #                      $1               $2         $3        $4         $5             $6       

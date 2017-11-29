@@ -229,7 +229,8 @@ package() {
 			INFO "打包开始："	
 		 	timeBegin=`date '+%s'`
 			gradle -PAPPLICATION_ID="$appPkg" -PAPP_NAME="$appName" -PAPP_VERSION_NAME="$appVersion" -PAPP_VERSION_CODE="$appVersionCode" -PBUILD_SCRIPT="${PROJDIR}/build.gradle" \
-			-PUMENG_VALUE="$channelName" -PENVIRONMENT="$environment" -PLABLE="$author" "assemble${buildType}" -b "${PROJDIR}/build.gradle" --stacktrace
+			-PUMENG_VALUE="$channelName" -PFRINED_ID="$channelId" -PENVIRONMENT="$environment" -PLABLE="$author" "assemble${buildType}" -b "${PROJDIR}/build.gradle" --stacktrace
+
 			if [ $? -ne 0 ]; then
         		ERROR "编译失败！"
         		exit 1
