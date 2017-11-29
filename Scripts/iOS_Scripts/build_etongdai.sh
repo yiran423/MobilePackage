@@ -34,23 +34,23 @@ setversion() {
     INFO "info_plist is: $info_plist"
     short_ver=$(/usr/libexec/PlistBuddy "$info_plist" -c "Print CFBundleShortVersionString")
     INFO "short_ver is: $short_ver"
-    sed -i -n 's#appVersion.*#appVersion: '$short_ver', //app#' "$WORK_DIR/app/commons/config.js"
+    sed -i '' -n 's#appVersion.*#appVersion: '$short_ver', //app#' "$WORK_DIR/app/commons/config.js"
 }
 
 setconfig() {
     INFO "set environment"
     case "$environment" in
         "test" )
-                sed -i -n 's/const mode.*/const mode = "test";/' "$WORK_DIR/app/commons/config.js"
+                sed -i '' -n 's/const mode.*/const mode = "test";/' "$WORK_DIR/app/commons/config.js"
             ;;
         "betaTest" )
-                sed -i -n 's/const mode.*/const mode = "betaTest";/' "$WORK_DIR/app/commons/config.js"
+                sed -i '' -n 's/const mode.*/const mode = "betaTest";/' "$WORK_DIR/app/commons/config.js"
             ;;
         "develop" )
-                sed -i -n 's/const mode.*/const mode = "develop";/' "$WORK_DIR/app/commons/config.js"
+                sed -i '' -n 's/const mode.*/const mode = "develop";/' "$WORK_DIR/app/commons/config.js"
             ;;
         "production" )
-                sed -i -n 's/const mode.*/const mode = "production";/' "$WORK_DIR/app/commons/config.js"
+                sed -i '' -n 's/const mode.*/const mode = "production";/' "$WORK_DIR/app/commons/config.js"
             ;;  
     esac
     setversion

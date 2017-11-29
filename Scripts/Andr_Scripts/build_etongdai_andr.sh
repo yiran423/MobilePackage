@@ -9,7 +9,7 @@ else
     WORK_DIR="$PWD"
 fi
 
-#variable set
+#variables set
 headVer=${appVersionCode:0:1}
 midVer1=${appVersionCode:1:1}
 midVer2=${appVersionCode:2:1}
@@ -43,23 +43,23 @@ TIMECONSUMED(){
 
 setversion() {
 	INFO "set version"
-	sed -i -n 's#appVersion.*#appVersion: '$version', //app#' "$WORK_DIR/app/commons/config.js"
+	sed -i '' -n 's#appAndroidVersion.*#appAndroidVersion: '$version', //app#' "$WORK_DIR/app/commons/config.js"
 }
 
 setconfig() {
 	INFO "set environment"
 	case "$environment" in
 		"test" )
-				sed -i -n 's/const mode.*/const mode = "test";/' "$WORK_DIR/app/commons/config.js"
+				sed -i '' -n 's/const mode.*/const mode = "test";/' "$WORK_DIR/app/commons/config.js"
 			;;
 		"betaTest" )
-				sed -i -n 's/const mode.*/const mode = "betaTest";/' "$WORK_DIR/app/commons/config.js"
+				sed -i '' -n 's/const mode.*/const mode = "betaTest";/' "$WORK_DIR/app/commons/config.js"
 			;;
 		"develop" )
-				sed -i -n 's/const mode.*/const mode = "develop";/' "$WORK_DIR/app/commons/config.js"
+				sed -i '' -n 's/const mode.*/const mode = "develop";/' "$WORK_DIR/app/commons/config.js"
 			;;
 		"production" )
-				sed -i -n 's/const mode.*/const mode = "production";/' "$WORK_DIR/app/commons/config.js"
+				sed -i '' -n 's/const mode.*/const mode = "production";/' "$WORK_DIR/app/commons/config.js"
 			;;	
 	esac
 	setversion
