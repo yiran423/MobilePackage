@@ -207,8 +207,8 @@ package() {
 			find ${BUILD_DIR} -d 1 -name '*.apk' -exec mv {} ./apks/${productName}.apk \;
 			
 			INFO "apk..."
-    		if [ -f "./apks/${productName}" ];then
-        		curl -v -u "deployer:iouI&1" --upload-file "./apks/${productName}.apk" "http://10.20.9.108:8081/nexus/repository/etd-apps/Anrd/${version}/${BUILD_NUMBER}/"
+    		if [ -f "${WORK_DIR}/apks/${productName}" ];then
+        		curl -v -u "deployer:iouI&1" --upload-file "${WORK_DIR}/apks/${productName}.apk" "http://10.20.9.108:8081/nexus/repository/etd-apps/Anrd/${version}/${BUILD_NUMBER}/"
     		else
         		ERROR "upload apk to nexus fail."
     		fi
