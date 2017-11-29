@@ -37,7 +37,7 @@ setversion() {
     midVer=`echo $short_ver | awk -F "." '{print $2}'`
     tailVer=`echo $short_ver | awk -F "." '{print $3}'`
     tailVerM=$(( ++tailVer ))
-    versionM="${headVer}.${midVer}.${midVer}.${tailVerM}"
+    versionM="${headVer}.0.${midVer}.${tailVerM}"
     INFO "short_ver is: $short_ver"
     INFO "versionM is: $versionM"
     sed -i '' 's#appVersion.*#appVersion: '$short_ver', //app#' "$WORK_DIR/app/commons/config.js"
