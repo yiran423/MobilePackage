@@ -250,7 +250,7 @@ package() {
 
 }
 
-
+setconfig
 package
 # package "com.stateunion.p2p.etongdai" "易通贷理财" "3.0.5" "3006" "yingxiao1001" "MTA3MTQwMjA=" "production" "Release" "liushuo" "true" | tee andr.log
 # package "com.stateunion.p2p.etongdai" "易通贷理财" "3.0.5" "3006" "test" "" "test" "Debug" "liushuo" "false"
