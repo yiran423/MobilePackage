@@ -9,7 +9,7 @@ ERROR(){ echo -e "\x1B[31m$1\x1B[0m"; }
 [ -d necessity ] || mkdir -p necessity
 plistpath="necessity/manifest.plist"
 htmlpath="necessity/index.html"
-imgpath="AppIcon60x60@3x.png"
+imgpath="$iOS_Scripts/AppIcon60x60@3x.png"
 
 #gen plist
 cat << EOF > $plistpath
