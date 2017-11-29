@@ -40,8 +40,8 @@ setversion() {
     versionM="${headVer}.0.${midVer}.${tailVerM}"
     INFO "short_ver is: $short_ver"
     INFO "versionM is: $versionM"
-    sed -i '' 's#appVersion.*#appVersion: '$short_ver', //app#' "$WORK_DIR/app/commons/config.js"
-    sed -i '' 's#appAndroidVersion.*#appAndroidVersion: '$versionM', //app#' "$WORK_DIR/app/commons/config.js"
+    sed -i '' "s#appVersion.*#appVersion: '$short_ver', //app#" "$WORK_DIR/app/commons/config.js"
+    sed -i '' "s#appAndroidVersion.*#appAndroidVersion: '$versionM', //app#" "$WORK_DIR/app/commons/config.js"
 }
 
 setconfig() {
