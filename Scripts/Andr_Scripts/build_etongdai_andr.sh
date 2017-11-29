@@ -9,6 +9,22 @@ else
     WORK_DIR="$PWD"
 fi
 
+#variable set
+headVer=${appVersionCode:0:1}
+midVer1=${appVersionCode:1:1}
+midVer2=${appVersionCode:2:1}
+tailVer=${appVersionCode:3:1}
+version="${headVer}.${midVer1}.${midVer2}.${tailVer}"
+
+PROJDIR="${WORK_DIR}/android/app"
+BUILD_DIR="${PROJDIR}/build/outputs/apk/$(echo $buildType | tr 'A-Z' 'a-z')"
+libDir="${PROJDIR}/src/main/jniLibs"
+jFile="./channels.json"
+timeStamp=$(date '+%y%m%d-%H-%M')
+channelCount=0
+
+[[ ! -d apks ]] && `mkdir -p apks`
+
 INFO(){ echo -e "\x1B[35m$1\x1B[0m"; }
 WARNING(){ echo -e "\x1B[33m$1\x1B[0m"; }
 RESET(){
@@ -23,6 +39,11 @@ ERROR(){
 TIMECONSUMED(){
     timeNow=`date '+%s'`
     echo `expr $timeNow - $timeBegin`
+}
+
+setversion() {
+	INFO "set version"
+	sed -i -n 's#appVersion.*#appVersion: '$version', //app#' "$WORK_DIR/app/commons/config.js"
 }
 
 setconfig() {
@@ -40,26 +61,10 @@ setconfig() {
 		"production" )
 				sed -i -n 's/const mode.*/const mode = "production";/' "$WORK_DIR/app/commons/config.js"
 			;;	
-
 	esac
+	setversion
 
 }
-
-
-PROJDIR="${WORK_DIR}/android/app"
-BUILD_DIR="${PROJDIR}/build/outputs/apk/$(echo $buildType | tr 'A-Z' 'a-z')"
-libDir="${PROJDIR}/src/main/jniLibs"
-jFile="./channels.json"
-timeStamp=$(date '+%y%m%d-%H-%M')
-channelCount=0
-
-headVer=${appVersionCode:0:1}
-midVer1=${appVersionCode:1:1}
-midVer2=${appVersionCode:2:1}
-tailVer=${appVersionCode:3:1}
-version="${headVer}.${midVer1}.${midVer2}.${tailVer}"
-[[ ! -d apks ]] && `mkdir -p apks`
-
 
 package() {
 	# $1-appPkg $2-appName $3-appVersion $4-appVersionCode	$5-channelName $6-channelId	$7-environment	$8-buildType $9-author
