@@ -43,23 +43,23 @@ TIMECONSUMED(){
 
 setversion() {
 	INFO "set version"
-	sed -i 's#appAndroidVersion.*#appAndroidVersion: '$version', //app#' "$WORK_DIR/app/commons/config.js"
+	sed -i '' 's#appAndroidVersion.*#appAndroidVersion: '$version', //app#' "$WORK_DIR/app/commons/config.js"
 }
 
 setconfig() {
 	INFO "set environment"
 	case "$environment" in
 		"test" )
-				sed -i 's/const mode.*/const mode = "test";/' "$WORK_DIR/app/commons/config.js"
+				sed -i '' 's/const mode.*/const mode = "test";/' "$WORK_DIR/app/commons/config.js"
 			;;
 		"betaTest" )
-				sed -i 's/const mode.*/const mode = "betaTest";/' "$WORK_DIR/app/commons/config.js"
+				sed -i '' 's/const mode.*/const mode = "betaTest";/' "$WORK_DIR/app/commons/config.js"
 			;;
 		"develop" )
-				sed -i 's/const mode.*/const mode = "develop";/' "$WORK_DIR/app/commons/config.js"
+				sed -i '' 's/const mode.*/const mode = "develop";/' "$WORK_DIR/app/commons/config.js"
 			;;
 		"production" )
-				sed -i 's/const mode.*/const mode = "production";/' "$WORK_DIR/app/commons/config.js"
+				sed -i '' 's/const mode.*/const mode = "production";/' "$WORK_DIR/app/commons/config.js"
 			;;	
 	esac
 	setversion
