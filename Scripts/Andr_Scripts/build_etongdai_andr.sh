@@ -19,7 +19,8 @@ version="${headVer}.${midVer1}.${midVer2}.${tailVer}"
 PROJDIR="${WORK_DIR}/android/app"
 BUILD_DIR="${PROJDIR}/build/outputs/apk/$(echo $buildType | tr 'A-Z' 'a-z')"
 libDir="${PROJDIR}/src/main/jniLibs"
-jFile="./channels.json"
+scriptsDir="{WORK_DIR}/Scripts/Andr_Scripts"
+jFile="{WORK_DIR}/Scripts/Andr_Scripts/channels.json"
 timeStamp=$(date '+%y%m%d-%H-%M')
 channelCount=0
 
@@ -114,7 +115,7 @@ package() {
 		 	 	else
 		 	 		INFO "libac.so is not existed"
 		 	 		INFO "cp libac.so"
-		 	 		cp -f ac/armeabi/libac.so ${libDir}/armeabi
+		 	 		cp -f $scriptsDir/ac/armeabi/libac.so ${libDir}/armeabi
 		 	 		[[ -f ${libDir}/armeabi/libac.so ]] && `chmod 776 ${libDir}/armeabi/libac.so`
 		 	 		if [[ $? -ne 0 ]]; then
 		 	 			ERROR "chmod file fail"
@@ -165,7 +166,7 @@ package() {
 		 	 		INFO "libdu.so is not existed"
 		 	 		for p in "armeabi" "armeabi-v7a" "x86" ; do
 		 	 			INFO ">>>>>>cp $p"
-		 	 			cp -rf shumeng/${p} ${libDir}
+		 	 			cp -rf $scriptsDir/shumeng/${p} ${libDir}
 		 	 			[[ -f ${libDir}/${p}/libdu.so ]] && `chmod 776 ${libDir}/${p}/libdu.so`
 		 	 		done
 		 	 		if [[ $? -ne 0 ]]; then
@@ -246,7 +247,7 @@ package() {
 		 	 	else
 		 	 		INFO "libac.so is not existed"
 		 	 		INFO "cp libac.so"
-		 	 		cp -f ac/armeabi/libac.so ${libDir}/armeabi
+		 	 		cp -f $scriptsDir/ac/armeabi/libac.so ${libDir}/armeabi
 		 	 		[[ -f ${libDir}/armeabi/libac.so ]] && `chmod 776 ${libDir}/armeabi/libac.so`
 		 	 		if [[ $? -ne 0 ]]; then
 		 	 			ERROR "chmod file fail"
@@ -297,7 +298,7 @@ package() {
 		 	 		INFO "libdu.so is not existed"
 		 	 		for p in "armeabi" "armeabi-v7a" "x86" ; do
 		 	 			INFO ">>>>>>cp $p"
-		 	 			cp -rf shumeng/${p} ${libDir}
+		 	 			cp -rf $scriptsDir/shumeng/${p} ${libDir}
 		 	 			[[ -f ${libDir}/${p}/libdu.so ]] && `chmod 776 ${libDir}/${p}/libdu.so`
 		 	 		done
 		 	 		if [[ $? -ne 0 ]]; then
