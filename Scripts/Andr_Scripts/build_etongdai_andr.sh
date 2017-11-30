@@ -84,6 +84,7 @@ package() {
 		for (( i = 0; i < `jq '. | length' $jFile`; i++ )); do
 		 	 channelName=`jq -r ".[$i] | .name" $jFile`
 		 	 channelId=`jq -r ".[$i] | .value" $jFile`
+		 	 productName="eTongDai_${channelName}_${environment}_${buildType}_No.${BUILD_NUMBER}_${timeStamp}"
 		 	 INFO ">>>>>>$current channel is: $channelName"
 		 	 INFO ">>>>>>$current channel is: $channelId"
 		 	 if [[ "$channelName" == "乐视" ]] || [[ "$channelName" == "应用宝应用市场" ]]; then
