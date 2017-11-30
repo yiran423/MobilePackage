@@ -19,8 +19,8 @@ version="${headVer}.${midVer1}.${midVer2}.${tailVer}"
 PROJDIR="${WORK_DIR}/android/app"
 BUILD_DIR="${PROJDIR}/build/outputs/apk/$(echo $buildType | tr 'A-Z' 'a-z')"
 libDir="${PROJDIR}/src/main/jniLibs"
-scriptsDir="{WORK_DIR}/Scripts/Andr_Scripts"
-jFile="{WORK_DIR}/Scripts/Andr_Scripts/channels.json"
+scriptsDir="${WORK_DIR}/Scripts/Andr_Scripts"
+jFile="${WORK_DIR}/Scripts/Andr_Scripts/channels.json"
 timeStamp=$(date '+%y%m%d-%H-%M')
 channelCount=0
 
