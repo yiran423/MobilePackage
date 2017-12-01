@@ -14,7 +14,8 @@ headVer=${appVersionCode:0:1}
 midVer1=${appVersionCode:1:1}
 midVer2=${appVersionCode:2:1}
 tailVer=${appVersionCode:3:1}
-version="${headVer}.${midVer1}.${midVer2}.${tailVer}"
+tailVerM=$(( --tailVer ))
+version="${headVer}.${midVer1}.${midVer2}.${tailVerM}"
 
 PROJDIR="${WORK_DIR}/android/app"
 BUILD_DIR="${PROJDIR}/build/outputs/apk/$(echo $buildType | tr 'A-Z' 'a-z')"

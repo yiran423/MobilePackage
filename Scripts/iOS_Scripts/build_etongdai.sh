@@ -68,7 +68,8 @@ setversion() {
     headVer=`echo $short_ver | awk -F "." '{print $1}'`
     midVer=`echo $short_ver | awk -F "." '{print $2}'`
     tailVer=`echo $short_ver | awk -F "." '{print $3}'`
-    tailVerM=$(( ++tailVer ))
+    # tailVerM=$(( ++tailVer ))
+    tailVerM=$(( tailVer ))
     versionM="${headVer}.0.${midVer}.${tailVerM}"
     INFO "short_ver is: $short_ver"
     INFO "versionM is: $versionM"
