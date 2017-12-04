@@ -133,7 +133,29 @@ package(){
             end
         end
         xcproj.save"
-    
+
+    if [[ "$pushServices" == "true" ]]; then
+        INFO "go pushServices way"
+        ruby -e "require 'xcodeproj'
+        xcproj = Xcodeproj::Project.open('$xcodeproj_dir_path')
+        xcproj.targets.each do |target|
+            if target.display_name == '$2'
+                target.build_configurations.each do |config|
+                    puts 'go in this way $2'
+                    config.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = 'com.etongdai.product'
+                end
+            elsif target.display_name == '${2}NotifyService'
+                target.build_configurations.each do |config|
+                    puts 'go in this way ${2}NotifyService'
+                    config.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = 'com.etongdai.product.notifyservice'
+                end
+            end
+        end
+        xcproj.save"
+        appKey="9e2cf131bcaa181162a717a3"
+        sed -i '' 's/\(^.*JPUSHService setupWithOption:launchOptions appKey:@\).*$/\1'\"$appKey\"'/' "$PROJDIR/$1/Main/AppDelegate.m"
+    fi
+
     if [ $? -ne 0 ]; then
         ERROR "设置sign name，profile或dSYM失败！"
         exit 1
