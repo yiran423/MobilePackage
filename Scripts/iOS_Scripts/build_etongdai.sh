@@ -109,7 +109,7 @@ package(){
     #                      $1               $2         $3        $4         $5             $6       
     # arguments: workspace/projectName schemeName buildConfig signName profileName provisioningStyle
     INFO "=== 开始编译打包$1: scheme $2 config $3 ==="
-    RESET
+    # RESET
     xcodeproj_dir_path=$(find $WORK_DIR -name "$1.xcodeproj" -type d)
     INFO "设置sign name，profile和dSYM配置"
     ruby -e "require 'xcodeproj'
@@ -253,6 +253,7 @@ package(){
 
 case "$build_product" in
     "eTongDai")
+            RESET
             setconfig
             package "eTongDai" "eTongDai" "Debug" "$DEVELOPER_SIGN_NAME_SYSH" "$PROVISIONING_PROFILE_SPECIFIER_SYSH_DEV_AUTO" "Automatic"
             ;;
