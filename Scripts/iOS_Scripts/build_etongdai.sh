@@ -195,7 +195,10 @@ package(){
         end
         xcproj.save"
         appKey="9e2cf131bcaa181162a717a3"
+        info_notify_path=$(find $PROJDIR/${1}NotifyService -d 1 -name "Info.plist" -type f)
         sed -i '' 's/\(^.*JPUSHService setupWithOption:launchOptions appKey:@\).*$/\1'\"$appKey\"'/' "$PROJDIR/$1/Main/AppDelegate.m"
+        /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.etongdai.product"  ${info_plist_path}
+        /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.etongdai.product.notifyservice"  ${info_notify_path}
     fi
 
     derivedDataPath="$BUILD_DIR"
