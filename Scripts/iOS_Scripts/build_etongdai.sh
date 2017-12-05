@@ -234,7 +234,7 @@ package(){
     else
         INFO "打包成功！耗时$(TIMECONSUMED)秒，位于：${PKGS_PATH}/$productName.ipa"
     fi
-    RESET
+    # RESET
     INFO "=== $1编译打包完成: scheme $2 config $3 ==="
 
     #rename ipa
