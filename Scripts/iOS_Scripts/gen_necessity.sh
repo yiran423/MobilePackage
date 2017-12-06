@@ -34,7 +34,7 @@ cat << EOF > $plistpath
                    <key>needs-shine</key>
                    <true/>
                    <key>url</key>
-                   <string>https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/AppIcon60x60@3x.png</string>
+                   <string>https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/iOS/${short_version}/${BUILD_NUMBER}/AppIcon60x60@3x.png</string>
                </dict>
                <dict>
                    <key>kind</key>
@@ -42,7 +42,7 @@ cat << EOF > $plistpath
                    <key>needs-shine</key>
                    <true/>
                    <key>url</key>
-                   <string>https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/AppIcon60x60@3x.png</string>
+                   <string>https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/iOS/${short_version}/${BUILD_NUMBER}/AppIcon60x60@3x.png</string>
                </dict>
 			</array>
 			<key>metadata</key>
