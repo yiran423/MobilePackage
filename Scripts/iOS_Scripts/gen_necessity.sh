@@ -28,6 +28,22 @@ cat << EOF > $plistpath
 					<key>url</key>
 					<string>https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/${productName}.ipa</string>
 				</dict>
+                <dict>
+                   <key>kind</key>
+                   <string>display-image</string>
+                   <key>needs-shine</key>
+                   <true/>
+                   <key>url</key>
+                   <string>https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/AppIcon60x60@3x.png</string>
+               </dict>
+               <dict>
+                   <key>kind</key>
+                   <string>full-size-image</string>
+                   <key>needs-shine</key>
+                   <true/>
+                   <key>url</key>
+                   <string>https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/AppIcon60x60@3x.png</string>
+               </dict>
 			</array>
 			<key>metadata</key>
 			<dict>
