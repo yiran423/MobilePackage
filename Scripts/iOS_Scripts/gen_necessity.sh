@@ -26,7 +26,7 @@ cat << EOF > $plistpath
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/${short_version}/${BUILD_NUMBER}/${productName}.ipa</string>
+					<string>https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/iOS/${short_version}/${BUILD_NUMBER}/${productName}.ipa</string>
 				</dict>
                 <dict>
                    <key>kind</key>
