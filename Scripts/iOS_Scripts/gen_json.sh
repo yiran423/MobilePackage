@@ -19,6 +19,7 @@ cat << EOF > ${WORK_DIR}/download.json
 	"buildNum":"$BUILD_NUMBER",
 	"jobName":"$JOB_NAME",
 	"buildUrl":"${BUILD_URL}",
+	"environment":"${environment}",
 	"indexUrl":"https://nexus.zgc.etongdai.org/nexus/repository/etd-apps/iOS/${short_version}/${BUILD_NUMBER}/index.html",
 	"resources": [ "${productName}.ipa" ]
 }
