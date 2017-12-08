@@ -164,7 +164,7 @@ package(){
                                 end
                             end
                             xcproj.save"
-                    productName="$2_$3_${short_version}_No.${BUILD_NUMBER}_${timeStamp}"
+                    productName="$2_$3_${environment}_${short_version}_No.${BUILD_NUMBER}_${timeStamp}"
                     ;;
                     *)
                         INFO "需要新增PROVISIONING_PROFILE_SPECIFIER"
