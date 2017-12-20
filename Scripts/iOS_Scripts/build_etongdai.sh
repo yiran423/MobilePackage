@@ -80,14 +80,17 @@ setversion() {
 setconfig() {
     INFO "set environment"
     case "$environment" in
-        "test" )
-                sed -i '' 's/const mode.*/const mode = "test";/' "$WORK_DIR/app/commons/config.js"
+        "stage1" )
+                sed -i '' 's/const mode.*/const mode = "stage1";/' "$WORK_DIR/app/commons/config.js"
             ;;
-        "betaTest" )
-                sed -i '' 's/const mode.*/const mode = "betaTest";/' "$WORK_DIR/app/commons/config.js"
+        "stage2" )
+                sed -i '' 's/const mode.*/const mode = "stage2";/' "$WORK_DIR/app/commons/config.js"
             ;;
-        "develop" )
-                sed -i '' 's/const mode.*/const mode = "develop";/' "$WORK_DIR/app/commons/config.js"
+         "stage3" )
+                sed -i '' 's/const mode.*/const mode = "stage3";/' "$WORK_DIR/app/commons/config.js"
+            ;;    
+        "preproduction" )
+                sed -i '' 's/const mode.*/const mode = "preproduction";/' "$WORK_DIR/app/commons/config.js"
             ;;
         "production" )
                 sed -i '' 's/const mode.*/const mode = "production";/' "$WORK_DIR/app/commons/config.js"
