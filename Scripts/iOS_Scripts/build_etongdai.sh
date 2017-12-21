@@ -258,7 +258,7 @@ case "$build_product" in
     "eTongDai")
             RESET
             setconfig
-            package "eTongDai" "eTongDai" "Release" "$DEVELOPER_SIGN_NAME_SYSH" "$PROVISIONING_PROFILE_SPECIFIER_SYSH_DEV_AUTO" "Automatic"
+            package "eTongDai" "eTongDai" "${buildType}" "$DEVELOPER_SIGN_NAME_SYSH" "$PROVISIONING_PROFILE_SPECIFIER_SYSH_DEV_AUTO" "Automatic"
             ;;
 esac
 
