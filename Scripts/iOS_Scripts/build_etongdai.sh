@@ -280,7 +280,7 @@ case "$build_product" in
                 cd "${SIM_PATH}/Build/Products/Debug-iphonesimulator"
                 zip -qr "${simApp}.zip" "${simApp}.app"
                 curl -v -u "deployer:iouI&1" --upload-file "${SIM_PATH}/Build/Products/Debug-iphonesimulator/${simApp}.zip" "http://10.20.9.108:8081/nexus/repository/etd-apps/iOS/simulator/${appVersion}/${BUILD_NUMBER}/"
-                INFO "http://10.20.9.108:8081/nexus/repository/etd-apps/iOS/simulator/${short_version}/${BUILD_NUMBER}/"
+                INFO "http://10.20.9.108:8081/nexus/repository/etd-apps/iOS/simulator/${appVersion}/${BUILD_NUMBER}/"
             else
                 ERROR "upload app to nexus fail."
             fi
