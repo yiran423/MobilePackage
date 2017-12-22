@@ -264,7 +264,7 @@ case "$build_product" in
         else
             RESET
             setconfig
-            xcodebuild -project "${PROJDIR}/eTongDai" -scheme "eTongDai" -configuration "Debug" -sdk "iphonesimulator" -derivedDataPath "$SIM_PATH"
+            xcodebuild -project "${PROJDIR}/eTongDai.xcodeproj" -scheme "eTongDai" -configuration "Debug" -sdk "iphonesimulator" -derivedDataPath "$SIM_PATH"
             simApp="eTongDai_${buildType}_${appVersion}_No.${BUILD_NUMBER}_${timeStamp}"
             INFO "重命名app..."
             mv "${SIM_PATH}/eTongDai.app" "${SIM_PATH}/${simApp}.app"
