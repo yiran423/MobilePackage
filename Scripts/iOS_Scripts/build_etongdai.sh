@@ -276,7 +276,7 @@ case "$build_product" in
             INFO "重命名app..."
             mv "${SIM_PATH}/Build/Products/Debug-iphonesimulator/eTongDai.app" "${SIM_PATH}/Build/Products/Debug-iphonesimulator/${simApp}.app"
             INFO "上传app..."
-            if [ -f "${SIM_PATH}/Build/Products/Debug-iphonesimulator/${simApp}.app" ];then
+            if [ -d "${SIM_PATH}/Build/Products/Debug-iphonesimulator/${simApp}.app" ];then
                 curl -v -u "deployer:iouI&1" --upload-file "${SIM_PATH}/${simApp}.app" "http://10.20.9.108:8081/nexus/repository/etd-apps/iOS/simulator/${short_version}/${BUILD_NUMBER}/"
                 INFO "http://10.20.9.108:8081/nexus/repository/etd-apps/iOS/simulator/${short_version}/${BUILD_NUMBER}/"
             else
