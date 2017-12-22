@@ -52,7 +52,7 @@ INFO ">>>>>PROJDIR is: $PROJDIR"
 
 BUILD_DIR="$WORK_DIR/build"
 PKGS_PATH="$WORK_DIR/packages"
-SIM_PATH="WORK_DIR/simOutput"
+SIM_PATH="$WORK_DIR/simOutput"
 mkdir -p "$PKGS_PATH/backup"
 find ${PKGS_PATH} -d 1 -name '*.ipa' -exec mv {} ${PKGS_PATH}/backup \;
 # DSYMS_PATH="$WORK_DIR/dsym"
@@ -261,22 +261,23 @@ case "$build_product" in
             RESET
             setconfig
             package "eTongDai" "eTongDai" "${buildType}" "$DEVELOPER_SIGN_NAME_SYSH" "$PROVISIONING_PROFILE_SPECIFIER_SYSH_DEV_AUTO" "Automatic"
+            RESET
         else
             RESET
             setconfig
-            xcodebuild -project "${PROJDIR}/eTongDai.xcodeproj" -scheme "eTongDai" -configuration "Debug" -sdk "iphonesimulator" -derivedDataPath "$SIM_PATH"
+            xcodebuild clean -project "${PROJDIR}/eTongDai.xcodeproj" -scheme "eTongDai" -configuration "Debug" -sdk "iphonesimulator" -derivedDataPath "$SIM_PATH"
+            RESET
             simApp="eTongDai_${buildType}_${appVersion}_No.${BUILD_NUMBER}_${timeStamp}"
             INFO "重命名app..."
-            mv "${SIM_PATH}/eTongDai.app" "${SIM_PATH}/${simApp}.app"
-
+            mv "${SIM_PATH}/Build/Products/Debug-iphonesimulator/eTongDai.app" "${SIM_PATH}/Build/Products/Debug-iphonesimulator/${simApp}.app"
             INFO "上传app..."
-            if [ -f "${SIM_PATH}/${simApp}.app" ];then
+            if [ -f "${SIM_PATH}/Build/Products/Debug-iphonesimulator/${simApp}.app" ];then
                 curl -v -u "deployer:iouI&1" --upload-file "${SIM_PATH}/${simApp}.app" "http://10.20.9.108:8081/nexus/repository/etd-apps/iOS/simulator/${short_version}/${BUILD_NUMBER}/"
                 INFO "http://10.20.9.108:8081/nexus/repository/etd-apps/iOS/simulator/${short_version}/${BUILD_NUMBER}/"
             else
                 ERROR "upload app to nexus fail."
             fi
         fi
-            ;;
+            ;;  
 esac
 
