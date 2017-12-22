@@ -82,19 +82,24 @@ setconfig() {
     INFO "set environment"
     case "$environment" in
         "stage1" )
-                sed -i '' 's/const mode.*/const mode = "stage1";/' "$WORK_DIR/app/commons/config.js"
+                # sed -i '' 's/const mode.*/const mode = "stage1";/' "$WORK_DIR/app/commons/config.js"
+                sed -i '' "s/var mode = __DEV__ ? NativeModules.ETDGrowingIO.mode.*/var mode = __DEV__ ? NativeModules.ETDGrowingIO.mode : 'stage1';/" "$WORK_DIR/app/commons/config.js"
             ;;
         "stage2" )
-                sed -i '' 's/const mode.*/const mode = "stage2";/' "$WORK_DIR/app/commons/config.js"
+                # sed -i '' 's/const mode.*/const mode = "stage2";/' "$WORK_DIR/app/commons/config.js"
+                sed -i '' "s/var mode = __DEV__ ? NativeModules.ETDGrowingIO.mode.*/var mode = __DEV__ ? NativeModules.ETDGrowingIO.mode : 'stage2';/" "$WORK_DIR/app/commons/config.js"
             ;;
          "stage3" )
-                sed -i '' 's/const mode.*/const mode = "stage3";/' "$WORK_DIR/app/commons/config.js"
+                # sed -i '' 's/const mode.*/const mode = "stage3";/' "$WORK_DIR/app/commons/config.js"
+                sed -i '' "s/var mode = __DEV__ ? NativeModules.ETDGrowingIO.mode.*/var mode = __DEV__ ? NativeModules.ETDGrowingIO.mode : 'stage3';/" "$WORK_DIR/app/commons/config.js"
             ;;    
         "preproduction" )
-                sed -i '' 's/const mode.*/const mode = "preproduction";/' "$WORK_DIR/app/commons/config.js"
+                # sed -i '' 's/const mode.*/const mode = "preproduction";/' "$WORK_DIR/app/commons/config.js"
+                sed -i '' "s/var mode = __DEV__ ? NativeModules.ETDGrowingIO.mode.*/var mode = __DEV__ ? NativeModules.ETDGrowingIO.mode : 'preproduction';/" "$WORK_DIR/app/commons/config.js"
             ;;
         "production" )
-                sed -i '' 's/const mode.*/const mode = "production";/' "$WORK_DIR/app/commons/config.js"
+                # sed -i '' 's/const mode.*/const mode = "production";/' "$WORK_DIR/app/commons/config.js"
+                sed -i '' "s/var mode = __DEV__ ? NativeModules.ETDGrowingIO.mode.*/var mode = __DEV__ ? NativeModules.ETDGrowingIO.mode : 'production';/" "$WORK_DIR/app/commons/config.js"
             ;;  
     esac
     setversion
