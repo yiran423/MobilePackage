@@ -87,6 +87,7 @@ CLEAN() {
 		 exit 1
 	else
 		INFO "clean finish"
+	fi
 }
 
 package() {
