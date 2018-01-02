@@ -224,7 +224,7 @@ package() {
 		 	timeBegin=`date '+%s'`
 		 	if [[ $buildType = 'Debug' ]]; then
 		 		INFO "now is building Debug package"
-		 		react-native bundle --entry-file "index.android.js" --platform "android" --dev "true" --bundle-output "./android/app/src/main/assets/index.android.bundle" --assets-dest "./android/app/src/main/res/"
+		 		`which react-native` bundle --entry-file "index.android.js" --platform "android" --dev "true" --bundle-output "./android/app/src/main/assets/index.android.bundle" --assets-dest "./android/app/src/main/res/"
 		 	fi
 			gradle -PAPPLICATION_ID="$appPkg" -PAPP_NAME="$appName" -PAPP_VERSION_NAME="$appVersion" -PAPP_VERSION_CODE="$appVersionCode" -PBUILD_SCRIPT="${PROJDIR}/build.gradle" \
 			-PUMENG_VALUE="$channelName" -PENVIRONMENT="$environment" -PLABLE="$author" "assemble${buildType}" -b "${PROJDIR}/build.gradle" --stacktrace
