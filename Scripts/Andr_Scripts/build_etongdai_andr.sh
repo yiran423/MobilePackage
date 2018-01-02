@@ -77,6 +77,18 @@ setconfig() {
 
 }
 
+CLEAN() {
+	INFO "now is cleaning bundle and res"
+	find . -name "$PROJDIR/src/main/asserts/index.android.bundle" -exec rm {} \;
+	find . -name "$PROJDIR/src/main/asserts/index.android.bundle.meta" -exec rm {} \;
+	find . -name "drawable-*" -type d -maxdepth 1 -exec rm -rf {} \;
+	if [[ $? -ne 0 ]]; then
+		 ERROR "clean fail"
+		 exit 1
+	else
+		INFO "clean finish"
+}
+
 package() {
 	# $1-appPkg $2-appName $3-appVersion $4-appVersionCode	$5-channelName $6-channelId	$7-environment	$8-buildType $9-author
 	# appPkg=$1 appName=$2 appVersion=$3 appVersionCode=$4 channelName=$5 channelId=$6 environment=$7 buildType=$8 author=$9 isChannels=${10}
@@ -205,10 +217,14 @@ package() {
 		INFO "isChannels false to this way"
 		if [[ "$channelName" == "test" ]]; then
 			INFO ">>>>>>$environment"
-			[[ "$environment" == "develop" ]] && appPkg="com.stateunion.p2p.etongdai.vest"
+			[[ "$environment" == "preproduction" ]] && appPkg="com.stateunion.p2p.etongdai.vest"
 			INFO ">>>>>>$appPkg"
 			INFO "打包开始："	
 		 	timeBegin=`date '+%s'`
+		 	if [[ $buildType = 'Debug' ]]; then
+		 		INFO "now is building Debug package"
+		 		react-native bundle --entry-file "index.android.js" --platform "android" --dev "true" --bundle-output "./android/app/src/main/assets/index.android.bundle" --assets-dest "./android/app/src/main/res/"
+		 	fi
 			gradle -PAPPLICATION_ID="$appPkg" -PAPP_NAME="$appName" -PAPP_VERSION_NAME="$appVersion" -PAPP_VERSION_CODE="$appVersionCode" -PBUILD_SCRIPT="${PROJDIR}/build.gradle" \
 			-PUMENG_VALUE="$channelName" -PENVIRONMENT="$environment" -PLABLE="$author" "assemble${buildType}" -b "${PROJDIR}/build.gradle" --stacktrace
 			if [ $? -ne 0 ]; then
@@ -357,6 +373,7 @@ package() {
 
 }
 
+CLEAN
 RESET
 setconfig
 package
