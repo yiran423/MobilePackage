@@ -111,7 +111,7 @@ setconfig() {
 DEVELOPER_SIGN_NAME_SYSH="iPhone Developer"
 DEVELOPMENT_TEAM_NAME_SYSH="Beijing Yitongdai Financial Information Service Co., Ltd."
 DEVELOPMENT_TEAM_ID_SYSH="7V42JS9FK2"
-# PROVISIONING_PROFILE_SPECIFIER_SYSH_DEV_AUTO="Automatic"
+PROVISIONING_PROFILE_SPECIFIER_SYSH_DEV_AUTO="Automatic"
 # PROVISIONING_PROFILE_SPECIFIER_SYSH_DEV="4c15ce26-8cf2-4431-8842-50007ee27ca4"
 
 package(){
@@ -265,12 +265,12 @@ case "$build_product" in
         if [[ "$simulator" == "false" ]]; then
             RESET
             setconfig
-            package "eTongDai" "eTongDai" "${buildType}" "$DEVELOPER_SIGN_NAME_SYSH" "$PROVISIONING_PROFILE_SPECIFIER_SYSH_DEV_AUTO" "Automatic"
+            package "eTongDai" "eTongDai" "$buildType" "$DEVELOPER_SIGN_NAME_SYSH" "$PROVISIONING_PROFILE_SPECIFIER_SYSH_DEV_AUTO" "Automatic"
             RESET
         else
             RESET
             setconfig
-            xcodebuild clean build -project "${PROJDIR}/eTongDai.xcodeproj" -scheme "eTongDai" -configuration "Debug" -sdk "iphonesimulator" -derivedDataPath "$SIM_PATH"
+            xcodebuild clean build -project "${PROJDIR}/eTongDai.xcodeproj" -scheme "eTongDai" -configuration "$buildType" -sdk "iphonesimulator" -derivedDataPath "$SIM_PATH"
             RESET
             simApp="eTongDai_${buildType}_${appVersion}_No.${BUILD_NUMBER}_${timeStamp}"
             INFO "重命名app..."
