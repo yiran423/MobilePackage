@@ -79,9 +79,9 @@ setconfig() {
 
 CLEAN() {
 	INFO "now is cleaning bundle and res"
-	find . -name "$PROJDIR/src/main/asserts/index.android.bundle" -exec rm {} \;
-	find . -name "$PROJDIR/src/main/asserts/index.android.bundle.meta" -exec rm {} \;
-	find . -name "drawable-*" -type d -maxdepth 1 -exec rm -rf {} \;
+	find "$PROJDIR/src/main/asserts" -name "$index.android.bundle" -exec rm {} \;
+	find "$PROJDIR/src/main/asserts" -name "index.android.bundle.meta" -exec rm {} \;
+	find "$PROJDIR/src/main/res" -name "drawable-*" -type d -maxdepth 1 -exec rm -rf {} \;
 	if [[ $? -ne 0 ]]; then
 		 ERROR "clean fail"
 		 exit 1
